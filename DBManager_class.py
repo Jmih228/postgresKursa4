@@ -3,8 +3,6 @@ import psycopg2
 class DBManager:
 
     def __init__(self):
-        conn = psycopg2.connect(dbname="hhru_project", user="postgres", password="hghghg777", host="localhost")
-        cur = conn.cursor()
 
     def get_companies_and_vacancies_count(self):
         with psycopg2.connect(dbname="hhru_project", user="postgres", password="hghghg777", host="localhost") as conn:
