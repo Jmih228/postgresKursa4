@@ -2,10 +2,13 @@ import psycopg2
 
 class DBManager:
 
-    def __init__(self):
+    def __init__(self, dbname, user, password):
+        self.dbname = dbname
+        self.user = user
+        self.password = password
 
     def get_companies_and_vacancies_count(self):
-        with psycopg2.connect(dbname="hhru_project", user="postgres", password="hghghg777", host="localhost") as conn:
+        with psycopg2.connect(dbname=self.dbname, user=self.user, password=self.password, host="localhost") as conn:
             with conn.cursor() as cur:
 
                 cur.execute('SELECT company_name, vacancies_count FROM employers')
@@ -15,7 +18,7 @@ class DBManager:
                     print(row)
 
     def get_all_vacancies(self):
-        with psycopg2.connect(dbname="hhru_project", user="postgres", password="hghghg777", host="localhost") as conn:
+        with psycopg2.connect(dbname=self.dbname, user=self.user, password=self.password, host="localhost") as conn:
             with conn.cursor() as cur:
 
                 cur.execute('''SELECT company_name, vacancy_name, minimal_salary, vacancy_url
@@ -27,7 +30,7 @@ class DBManager:
                     print(row)
 
     def get_avg_salary(self):
-        with psycopg2.connect(dbname="hhru_project", user="postgres", password="hghghg777", host="localhost") as conn:
+        with psycopg2.connect(dbname=self.dbname, user=self.user, password=self.password, host="localhost") as conn:
             with conn.cursor() as cur:
 
                 cur.execute('SELECT AVG(minimal_salary) FROM vacancies')
@@ -38,7 +41,7 @@ class DBManager:
                     print(row)
 
     def get_vacancies_with_higher_salary(self):
-        with psycopg2.connect(dbname="hhru_project", user="postgres", password="hghghg777", host="localhost") as conn:
+        with psycopg2.connect(dbname=self.dbname, user=self.user, password=self.password, host="localhost") as conn:
             with conn.cursor() as cur:
 
                 cur.execute('''SELECT vacancy_name FROM vacancies
@@ -50,7 +53,7 @@ class DBManager:
                     print(row)
 
     def get_vacancies_with_keyword(self, query):
-        with psycopg2.connect(dbname="hhru_project", user="postgres", password="hghghg777", host="localhost") as conn:
+        with psycopg2.connect(dbname=self.dbname, user=self.user, password=self.password, host="localhost") as conn:
             with conn.cursor() as cur:
 
                 cur.execute(f'''SELECT vacancy_name FROM vacancies
